@@ -1,0 +1,12 @@
+
+version: 2
+
+models:
+  - name: dim_hosts_cleaned
+    description: "{{ doc('dim_hosts_cleaned') }}"
+    columns:
+      - name: HOST_ID
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null

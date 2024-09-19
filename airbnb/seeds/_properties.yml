@@ -1,0 +1,20 @@
+version: 2
+
+seeds:
+  - name: student_list
+    description: "students demographics"
+    tags: ['seeds']  
+    config: 
+      +enabled: true
+      database: TESTDB     
+      schema: public
+      column_types:
+        roll_number: number
+        student_name: varchar(100)
+        class: number
+        section: char(1)
+        school_name: varchar(100) 
+      delimiter: ","
+      quote_columns: false              
+
+

@@ -1,0 +1,15 @@
+15:21:54  Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C8D56E48B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C8D8040490>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C8D5FFD850>]}
+15:21:54  Running with dbt=1.7.3
+15:21:54  running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'True', 'fail_fast': 'False', 'log_path': 'C:\\Users\\conne\\OneDrive\\Documents\\GitHub\\dbt_airbnb\\airbnb\\logs', 'version_check': 'True', 'profiles_dir': 'C:\\Users\\conne\\OneDrive\\Documents\\GitHub\\dbt_airbnb\\airbnb', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'invocation_command': 'dbt compile -m src_reviews -d --log-format-file json', 'introspect': 'True', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'True'}
+15:21:58  Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'c1c486ab-00f5-41b7-9169-27695d15f40d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C8D8054C70>]}
+15:21:59  Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'c1c486ab-00f5-41b7-9169-27695d15f40d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C8E0F1F940>]}
+15:21:59  Registered adapter: snowflake=1.7.0
+15:21:59  checksum: c95636796e12235e48c0560a0bb6a50e98827ef72e7ea1fe07a97c38c91661e1, vars: {}, profile: , target: , version: 1.7.3
+15:21:59  Partial parsing enabled: 0 files deleted, 0 files added, 1 files changed.
+15:21:59  Partial parsing: updated file: airbnb://models\src\src_reviews.sql
+15:21:59  Encountered an error:
+Compilation Error in model src_reviews (models\src\src_reviews.sql)
+  'full' is undefined. This can happen when calling a macro that does not exist. Check for typos and/or install package dependencies with "dbt deps".
+15:21:59  Command `dbt compile` failed at 20:51:59.811129 after 5.59 seconds
+15:21:59  Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C8D56E48B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C8E1515E20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C8E1515C10>]}
+15:21:59  Flushing usage events

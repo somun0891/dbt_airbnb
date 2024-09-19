@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: tickit
+    database: TICKIT
+    schema: raw
+    loader: Snowflake Bulk Copy
+    
+    quoting:
+      database: true
+      schema: false
+      identifier: false
+
+    tables:
+      - name: listing
+        description: "{{ doc('listing') }}"
+      - name: users
+      - name: venue
+      - name: category
+      - name: date
+      - name: event
+      - name: sales

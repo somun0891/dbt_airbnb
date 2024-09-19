@@ -1,0 +1,34 @@
+airbnb:
+  outputs:
+    dev:
+      account: hhvqkhk-gbb36396 
+      database: AIRBNB
+      password: QAWS123qaws
+      role: transform
+      schema: raw
+      threads: 4
+      type: snowflake
+      user: dbt_user
+      warehouse: compute_wh
+  target: dev
+dbt_hol:
+  outputs:
+    dev:
+      account: hhvqkhk-gbb36396
+      database: AIRBNB
+      password: QAWS123qaws
+      role: transform
+      schema: raw
+      threads: 2
+      type: snowflake
+      user: dbt_user
+      warehouse: COMPUTE_WH
+  target: dev
+
+#accountname =hhvqkhk-gbb36396  #ORGANIZATION-ACCOUNTNAME
+##region = AWS_US_EAST_1
+#username = meetnanu
+#password = QAWS123qaws
+#dbname= TESTDB
+#schemaname = PUBLIC
+#warehousename = COMPUTE_WH

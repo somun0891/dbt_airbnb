@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: generate_case_stmt
+    description: A macro to build out case conditions based on distinct values passed as a list 
+    arguments:
+      - name: mktunit
+        type: list
+        description: mktunit
+
+  - name: get_col_values
+    description: return a unique list of values from specified columns in a relation
+    arguments:
+      - name: relation
+        type: table
+        description: pass a table/relation name/reference model name , this is mandatory
+      - name: field
+        type: column
+        description: pass a column name, this is mandatory

@@ -1,0 +1,119 @@
+version: 2
+
+models:
+  - name: base_tickit_sales
+    description: "Sales for the tickets sold for the organized series of events" 
+    columns:
+      - name: salesid 
+        description: "salesid"
+        tests:
+          - not_null:
+              name: not_null_base_tickit_sales_SALESID          
+          - unique:  
+              name: UQ_base_tickit_sales_SALESID
+              config:
+                where: "1=1"    
+      - name: eventid 
+        description: "eventid"
+        tests:
+          - not_null:
+              name: not_null_base_tickit_sales_EVENTID        
+      - name: pricepaid 
+        description: "pricepaid"
+        tests:
+          - dbt_utils.expression_is_true:
+              name: PRICEPAID_GT_COMMISSION
+              expression: " > COMMISSION"        
+          - avg_dollars_greater_than_one:
+              name: avg_sales_per_day_gt_one  # used for test identification and test failure table creation
+              group_by: dateid  
+              config : 
+                  enabled: true
+                  severity: error
+                  error_if: "!=0"     
+      - name: qtysold 
+        description: "qtysold"
+        tests:
+          - dbt_utils.accepted_range: 
+             name: MAX_QTY_SOLD_LT_EQ_100        
+             max_value: 100
+             inclusive: true
+          # - dbt_utils.expression_is_true:
+          #    name: MAX_QTY_ALWAYS_POSITIVE
+          #    expression: "> 0"   
+          #    store_failures: true
+          #    store_failures_as: view #default = ephemeral , takes precedence over store_failures when set 
+      - name: change_timestamp 
+        description: "change_timestamp"
+      - name: dateid 
+        description: "dateid"
+      - name: saletime 
+        description: "saletime"
+      - name: commission 
+        description: "commission"
+      - name: buyerid 
+        description: "buyerid"
+      - name: listid 
+        description: "listid"
+      - name: sellerid 
+        description: "sellerid"    
+  - name: base_tickit_users
+    description: "user information" 
+    columns:
+      - name: USERID
+        description: description for USERID
+        tests: 
+          - unique:  
+                name: UQ_base_tickit_users_UserID
+          - not_null
+      - name: USERNAME
+        description: description for USERNAME
+      - name: FIRSTNAME
+        description: description for FIRSTNAME
+      - name: LASTNAME
+        description: description for LASTNAME
+      - name: CITY
+        description: description for CITY
+      - name: STATE
+        description: description for STATE
+      - name: EMAIL
+        description: description for EMAIL
+      - name: PHONE
+        description: description for PHONE
+      - name: LIKESPORTS
+        description: description for LIKESPORTS
+      - name: LIKETHEATRE
+        description: description for LIKETHEATRE
+      - name: LIKECONCERTS
+        description: description for LIKECONCERTS
+      - name: LIKEJAZZ
+        description: description for LIKEJAZZ
+      - name: LIKECLASSICAL
+        description: description for LIKECLASSICAL
+      - name: LIKEOPERA
+        description: description for LIKEOPERA
+      - name: LIKEROCK
+        description: description for LIKEROCK
+      - name: LIKEVEGAS
+        description: description for LIKEVEGAS
+      - name: LIKEBROADWAY
+        description: description for LIKEBROADWAY
+      - name: LIKEMUSICALS
+        description: description for LIKEMUSICALS
+      - name: CHANGE_TIMESTAMP
+        description: description for CHANGE_TIMESTAMP
+
+
+      
+        
+        
+
+
+        # meta: {<dictionary>}
+        # quote: true | false
+        # constraints:
+        #   - <constraint>
+        
+    # tests:
+    #   - <test>
+    #   - ... # declare additional data tests          

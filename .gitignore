@@ -1,0 +1,12 @@
+airbnb/packages.yml
+airbnb/package-lock.yml
+airbnb/.user.yml
+.user.yml
+airbnb/tests/.gitkeep
+airbnb/snapshots/.gitkeep
+airbnb/seeds/.gitkeep
+logs/dbt.log
+gitlab_access.pub
+gitlab_access
+airbnb/analyses/.gitkeep
+airbnb/macros/.gitkeep
