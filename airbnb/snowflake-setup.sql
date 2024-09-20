@@ -40,8 +40,10 @@ GRANT ALL ON FUTURE SCHEMAS IN DATABASE AIRBNB to ROLE transform;
 GRANT ALL ON ALL TABLES IN SCHEMA AIRBNB.RAW to ROLE transform;
 GRANT ALL ON FUTURE TABLES IN SCHEMA AIRBNB.RAW to ROLE transform;
 
+GRANT CREATE TABLE ON SCHEMA AIRBNB.RAW TO ROLE transform; 
+GRANT CREATE VIEW ON SCHEMA AIRBNB.RAW TO ROLE transform; 
 
-
+SHOW GRANTS TO ROLE transform;
 
 /* Data loading */
 
@@ -109,12 +111,48 @@ ADD COLUMN  ingest_ts DATETIME  ;
 UPDATE AIRBNB.raw.raw_reviews
 SET ingest_ts = CURRENT_TIMESTAMP;
 
-
+select max(ingest_ts) from AIRBNB.raw.raw_reviews;
+ 
+ SELECT * FROM (VALUES (1,4),(3,6)) a(x,y);
+select col1,col2 from AIRBNB.RAW.TRN_DUMMY
+UNION ALL
+select DATE,COMMENTS from  AIRBNB.raw.raw_reviews WHERE False;
 /*Query */
 
 select * from raw_listings limit 10; 
 select * from raw_hosts;
 select * from raw_reviews;
+
+
+select * from AIRBNB.RAW.TRN_DUMMY;
+
+
+USE ROLE TRANSFORM;
+  CREATE OR REPLACE TRANSIENT TABLE AIRBNB.RAW.TRN_DUMMY
+  COPY GRANTS
+   AS
+   SELECT * FROM (VALUES (1,4),(3,6)) a(col1 , col2);
+    
+  create or replace   view AIRBNB.raw.test_jinja_v2
+  
+   as (
+
+
+select col1,col2 from AIRBNB.RAW.TRN_DUMMY
+UNION ALL 
+select 1,2 from  AIRBNB.raw.raw_reviews WHERE False
+
+
+
+  );
+
+
+
+
+
+
+
+
 
 select * from information_schema.columns where table_name='RAW_LISTINGS';
 

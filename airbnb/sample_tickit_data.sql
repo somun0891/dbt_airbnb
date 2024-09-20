@@ -32,6 +32,7 @@ list @TESTDB.PUBLIC.EXT_STG_DATA;
 USE DATABASE TICKIT;
 USE SCHEMA RAW;
 
+
 create or replace table users(
 	userid integer not null,
 	username varchar(8),
