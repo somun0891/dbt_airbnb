@@ -6,9 +6,18 @@
        target_schema='SNAPSHOT',
        unique_key='LISTID',
        strategy='check',
-       check_cols = ['SELLERID', 'EVENTID', 'DATEID']  
+       check_cols = ['SELLERID', 'EVENTID', 'DATEID'] ,
+       invalidate_hard_deletes=true
    )
 }}
+
+--check_cols  can be a surrogate key field from source query / columns list / all (indicates all columns)
+-- Snapshot materialization create metadata fields in the snapshot table that it creates
+  {# - dbt_valid_from
+  - dbt_valid_to
+  - dbt_scd_id
+  - dbt_updated_at 
+  - dbt_is_deleted #}
 
 {#
      business key(s)/unique key - used to join with the source , uniquely identifier a record

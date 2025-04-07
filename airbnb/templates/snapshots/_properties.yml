@@ -1,0 +1,24 @@
+snapshots:
+   - name: listing_snapshot
+     relation: ref('src_listing')
+     config:
+        enabled: true
+        database: TESTDB
+        schema: public
+        unique_key: LISTID
+        strategy: check
+        check_cols: ['SELLERID', 'EVENTID', 'DATEID'] 
+        invalidates_hard_deletes: true
+        materialized: snapshot
+   - name: listing_TIMESTAMP_snapshot
+     relation: ref('src_listing')
+     config:
+        enabled: true
+        database: TESTDB
+        schema: public
+        unique_key: LISTID
+        strategy: timestamp
+        update_at: source_ts
+        invalidates_hard_deletes: true
+        materialized: snapshot
+

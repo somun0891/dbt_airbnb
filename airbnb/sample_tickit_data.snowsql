@@ -1,22 +1,60 @@
+
+    
 USE ROLE SYSADMIN;
+CREATE DATABASE TESTDB;
 CREATE DATABASE TICKIT;
 CREATE DATABASE adventureworks;
+CREATE SCHEMA IF NOT EXISTS TICKIT.RAW;
+CREATE SCHEMA IF NOT EXISTS TESTDB.PUBLIC;
+CREATE SCHEMA IF NOT EXISTS TESTDB.STAGING;
+CREATE SCHEMA IF NOT EXISTS adventureworks.dbo;
+
 
 USE ROLE SECURITYADMIN;
+CREATE ROLE TRANSFORM;
 
 GRANT ALL ON DATABASE TESTDB TO ROLE TRANSFORM;
-GRANT ALL ON DATABASE adventureworks TO ROLE TRANSFORM;
+GRANT ALL ON DATABASE TICKIT TO ROLE TRANSFORM;
+--GRANT ALL ON DATABASE adventureworks TO ROLE TRANSFORM;
 
 -- GRANT USAGE ON DATABASE TESTDB TO ROLE TRANSFORM;
--- GRANT USAGE ON SCHEMA TESTDB.PUBLIC TO ROLE TRANSFORM;
-GRANT OWNERSHIP ON DATABASE TICKIT TO ROLE TRANSFORM;
+ GRANT USAGE ON SCHEMA TESTDB.PUBLIC TO ROLE TRANSFORM;
+ GRANT USAGE ON SCHEMA TESTDB.STAGING TO ROLE TRANSFORM;
+ GRANT CREATE STAGE ON SCHEMA TESTDB.STAGING TO ROLE TRANSFORM;
+
 --GRANT USAGE ON STAGE TESTDB.PUBLIC.EXT_STG_DATA TO ROLE TRANSFORM;
 
+GRANT ROLE TRANSFORM TO USER MEETNANU;
+
+USE ROLE ACCOUNTADMIN;
+
+
+CREATE OR REPLACE STORAGE INTEGRATION S3_SNOW_ACCESS
+    TYPE = EXTERNAL_STAGE
+    STORAGE_PROVIDER = S3
+    ENABLED = TRUE
+    STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::767397839729:role/s3AccessRole' --somun0891@yahoo.com 
+    STORAGE_ALLOWED_LOCATIONS = ('s3://s3-xeon-east/');
+    
+GRANT USAGE ON INTEGRATION S3_SNOW_ACCESS TO ROLE TRANSFORM;
+GRANT USAGE ON WAREHOUSE COMPUTE_WH TO ROLE TRANSFORM;
+
+
 USE ROLE TRANSFORM; 
-CREATE SCHEMA IF NOT EXISTS AIRBNB.RAW;
-CREATE SCHEMA IF NOT EXISTS TESTDB.SNAPSHOT;
-CREATE SCHEMA IF NOT EXISTS adventureworks.dbo;
-list @TESTDB.PUBLIC.EXT_STG_DATA;
+
+
+DESCRIBE STORAGE INTEGRATION S3_SNOW_ACCESS;
+
+CREATE OR REPLACE STAGE TESTDB.STAGING.EXT_STG_DATA
+  storage_integration = S3_SNOW_ACCESS
+  url = 's3://s3-xeon-east/'
+  DIRECTORY = (enable=true auto_refresh=true)
+  ;
+
+use schema TESTDB.STAGING;  
+list @TESTDB.STAGING.EXT_STG_DATA;
+
+
 
 -- create table users_demo(
 -- 	userid integer not null,
@@ -137,7 +175,7 @@ create or replace table sales(
 -- select * from users limit 10;
 
 copy INTO users 
-from @TESTDB.PUBLIC.EXT_STG_DATA/tickit/allusers_pipe.txt
+from @TESTDB.STAGING.EXT_STG_DATA/tickit/allusers_pipe.txt
 file_format = (type=csv field_delimiter = '|' error_on_column_count_mismatch=false );
 
 UPDATE users
@@ -145,14 +183,14 @@ SET  change_timestamp = CURRENT_TIMESTAMP::TIMESTAMP_NTZ ;
 
 
 copy INTO venue 
-from @TESTDB.PUBLIC.EXT_STG_DATA/tickit/venue_pipe.txt
+from @TESTDB.STAGING.EXT_STG_DATA/tickit/venue_pipe.txt
 file_format = (type=csv field_delimiter = '|' error_on_column_count_mismatch=false );
 
 UPDATE venue
 SET  change_timestamp = CURRENT_TIMESTAMP::TIMESTAMP_NTZ ;
 
 copy INTO category 
-from @TESTDB.PUBLIC.EXT_STG_DATA/tickit/category_pipe.txt
+from @TESTDB.STAGING.EXT_STG_DATA/tickit/category_pipe.txt
 file_format = (type=csv field_delimiter = '|' error_on_column_count_mismatch=false );
 
 UPDATE category
@@ -161,19 +199,19 @@ SET  change_timestamp = CURRENT_TIMESTAMP::TIMESTAMP_NTZ ;
 
 
 copy INTO date
-from @TESTDB.PUBLIC.EXT_STG_DATA/tickit/date2008_pipe.txt
+from @TESTDB.STAGING.EXT_STG_DATA/tickit/date2008_pipe.txt
 file_format = (type=csv field_delimiter = '|' error_on_column_count_mismatch=false );
 
 
 copy INTO event
-from @TESTDB.PUBLIC.EXT_STG_DATA/tickit/allevents_pipe.txt
+from @TESTDB.STAGING.EXT_STG_DATA/tickit/allevents_pipe.txt
 file_format = (type=csv field_delimiter = '|' error_on_column_count_mismatch=false );
 
 UPDATE event
 SET  change_timestamp = CURRENT_TIMESTAMP::TIMESTAMP_NTZ ;
 
 copy INTO listing
-from @TESTDB.PUBLIC.EXT_STG_DATA/tickit/listings_pipe.txt
+from @TESTDB.STAGING.EXT_STG_DATA/tickit/listings_pipe.txt
 file_format = (type=csv field_delimiter = '|' error_on_column_count_mismatch=false );
 
 
@@ -182,7 +220,7 @@ SET  change_timestamp = CURRENT_TIMESTAMP::TIMESTAMP_NTZ ;
 
 
 copy INTO sales
-from @TESTDB.PUBLIC.EXT_STG_DATA/tickit/sales_tab.txt
+from @TESTDB.STAGING.EXT_STG_DATA/tickit/sales_tab.txt
 file_format = (type=csv field_delimiter = '\t' error_on_column_count_mismatch=false );
 
 UPDATE sales

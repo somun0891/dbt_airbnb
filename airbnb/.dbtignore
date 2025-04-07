@@ -1,0 +1,6 @@
+test_jinja.sql 
+test_dbt_date.sql 
+compare_queries.sql 
+
+templates/**
+analyses/**

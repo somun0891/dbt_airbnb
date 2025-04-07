@@ -126,6 +126,9 @@ select * from raw_reviews;
 
 select * from AIRBNB.RAW.TRN_DUMMY;
 
+select * from TESTDB.PUBLIC.test_incr
+WHERE AUDIT_TS <
+CAST(CONVERT_TIMEZONE('UTC', CAST(CURRENT_TIMESTAMP() AS TIMESTAMP_TZ(9))) AS TIMESTAMP_NTZ(9));
 
 USE ROLE TRANSFORM;
   CREATE OR REPLACE TRANSIENT TABLE AIRBNB.RAW.TRN_DUMMY
@@ -753,4 +756,8 @@ SET ADDRESS = '"546 Elmwood Drive ,~ BL Plaza %, New &Jersey , U.S.A';
 SELECT REGEXP_REPLACE($ADDRESS ,'["?!~&%]' , '');
 SELECT REGEXP_REPLACE($ADDRESS ,'[^a-zA-Z0-9, ]' , '');
 SELECT REGEXP_SUBSTR($ADDRESS ,'.*(~ \\w).*')  ;
+
+select * from TESTDB.public.cars;
+
+SHOW SCHEMAS;
 

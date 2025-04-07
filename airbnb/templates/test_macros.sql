@@ -48,7 +48,6 @@ from
 {% set nameslist = namesstring.split(',') %}
 {{nameslist}}
 
-
 {% for name in names %}
  {%- if loop.index is odd or loop.index == 0 -%}
   {{name | upper}}
@@ -67,6 +66,7 @@ from
 {{ nameinlowercase is lower }}
 {{ exists is boolean }}
 {{ names is mapping }}
+{{ names is sequence }}
 
 {{singlevalue not in names }}
 
@@ -188,3 +188,6 @@ true
 {% else %}
 false
 {% endif %}
+
+
+{{ get_dyn_tbl_name("mytable") }}

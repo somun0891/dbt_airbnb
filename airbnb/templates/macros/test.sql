@@ -15,7 +15,7 @@ SELECT
   t.table_name,
   CASE t.table_type
     WHEN 'BASE TABLE' THEN 'TABLE'
-    ELSE t.table_type
+    ELSE t.table_type 
   END AS table_type,
   c.column_name,
   c.data_type

@@ -1,27 +1,27 @@
 airbnb:
   outputs:
     dev:
-      account: hhvqkhk-gbb36396 
-      database: AIRBNB
-      password: QAWS123qaws
-      role: transform
-      schema: raw
+      account: tycibvq-xab15771 
+      database: VANTAGEDW
+      password: QAWS123qaws4102!
+      role: ITC_ADMIN
+      schema: VANTAGE
       threads: 4
       type: snowflake
-      user: dbt_user
-      warehouse: compute_wh
+      user: MEETNANU
+      warehouse: PROCESSING_WH
   target: dev
 dbt_hol:
   outputs:
     dev:
-      account: hhvqkhk-gbb36396
-      database: AIRBNB
-      password: QAWS123qaws
-      role: transform
-      schema: raw
+      account: XZNFSCV-QHB34722 
+      database: TESTDB
+      password: QAWS123qaws!
+      role: ACCOUNTADMIN
+      schema: PUBLIC
       threads: 2
       type: snowflake
-      user: dbt_user
+      user: MEETNANU
       warehouse: COMPUTE_WH
   target: dev
 

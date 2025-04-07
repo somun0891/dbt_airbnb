@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        </head>
+        <body>
+          <script>
+            window.inlineSource = `{\u0022my_second_dbt_model\u0022: {\u0022tables\u0022: [\u0022VANTAGEDW.VANTAGE.my_first_dbt_model\u0022], \u0022columns\u0022: {\u0022VANTAGEDW.VANTAGE.my_first_dbt_model.*\u0022: [[\u0022VANTAGEDW.VANTAGE.my_first_dbt_model.*\u0022], [\u0022VANTAGEDW.VANTAGE.my_first_dbt_model.id\u0022]]}, \u0022table_name\u0022: \u0022my_second_dbt_model\u0022, \u0022sql\u0022: \u0022select * from VANTAGEDW.VANTAGE.my_first_dbt_model where id = 1\u0022}, \u0022VANTAGEDW.VANTAGE.my_first_dbt_model\u0022: {\u0022tables\u0022: [], \u0022columns\u0022: {\u0022id\u0022: [[], []]}, \u0022table_name\u0022: \u0022VANTAGEDW.VANTAGE.my_first_dbt_model\u0022, \u0022sql\u0022: \u0022with source_data as ( select 1 as id union all select null as id ) select * from source_data\u0022}}`;
+          </script>
+          <div id="main"></div>
+        <script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="app.js"></script></body>
+        </html>

@@ -30,7 +30,7 @@ vars:
   valid_at: '{{ run_started_at.strftime("%Y-%m-%d %H:%M:%S") }}'
   prod_db: "{{ env_var('PROD_DB') }}"
   dateExpr: dateadd('day',  var('lookback') , current_date())
-  debug: "{{true if target.name == 'dev' else false}}"
+  debug: "{{target.name == 'dev' | as_bool}}"
 
 tests:
   airbnb:
@@ -47,7 +47,7 @@ tests:
 
 on-run-end: 
   # - "{{ log_results(results) }}"
-  - "{{ dbt_artifacts.upload_results(results) }}"
+ # - "{{ dbt_artifacts.upload_results(results) }}"
   # - "{{store_test_results(results)}}"
 
 # Configuring models

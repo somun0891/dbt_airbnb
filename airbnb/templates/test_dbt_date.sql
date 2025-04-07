@@ -39,11 +39,15 @@ Converted from epochs to timestamp - sql code:
 
 {% set relation = adapter.get_relation(database = "AIRBNB" ,schema = "RAW"  , identifier = "RAW_LISTING"       )  %}
 
-{% if relation %}
+{% set table_exists = relation is not none %}
+
+{% if table_exists %}
     "Source relation exists! "
 {% else %}
     "Source relation not found! "
 {% endif %} 
+
+
 
 
 {% set room_type =  dbt_utils.get_column_values(table= ref('src_listings'), column='ROOM_TYPE' ) %}
