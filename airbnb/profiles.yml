@@ -3,7 +3,7 @@ airbnb:
     dev:
       account: tycibvq-xab15771 
       database: VANTAGEDW
-      password: QAWS123qaws4102!
+      password: xxxxxxxxx
       role: ITC_ADMIN
       schema: VANTAGE
       threads: 4
@@ -16,7 +16,7 @@ dbt_hol:
     dev:
       account: XZNFSCV-QHB34722 
       database: TESTDB
-      password: QAWS123qaws!
+      password: xxxxxxx
       role: ACCOUNTADMIN
       schema: PUBLIC
       threads: 2
